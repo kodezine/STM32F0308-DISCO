@@ -46,7 +46,6 @@
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void SVC_Handler(void);
 void TIM1_BRK_UP_TRG_COM_IRQHandler(void);
 void USART1_IRQHandler(void);
 /* USER CODE BEGIN EFP */
