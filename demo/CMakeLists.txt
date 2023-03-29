@@ -29,7 +29,7 @@ cmake_minimum_required(VERSION 3.25)
         ${CMAKE_CURRENT_SOURCE_DIR}
     # Expose the linker files
     PUBLIC
-        ${CMAKE_SOURCE_DIR}/demo/__startup
+        ${cmsis_SOURCE_DIR}/CMSIS/Core/Include
     )
 
     if(NOT CMAKE_EXECUTABLE_SUFFIX)

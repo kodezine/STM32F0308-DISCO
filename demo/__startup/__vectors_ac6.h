@@ -12,7 +12,8 @@
  * The typedef is the only thing missing in the current implementation
  */
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /**
@@ -20,56 +21,66 @@ extern "C" {
  * once things get more clear {BSP has a similar macro }
  */
 #ifdef BSP_IRQ_ID_NUM
-    #define VECTOR_TABLE_LENGTH (BSP_IRQ_ID_NUM)
+#define VECTOR_TABLE_LENGTH (BSP_IRQ_ID_NUM)
 #else
-    #define VECTOR_TABLE_LENGTH (64) // based on ARM Cortex M7
+#define VECTOR_TABLE_LENGTH (64) // based on ARM Cortex M7
 #endif
 
-/**
-  \brief Exception / Interrupt Handler Function Prototype
-*/
-typedef void(*VECTOR_TABLE_Type)(void);
+  /**
+    \brief Exception / Interrupt Handler Function Prototype
+  */
+  typedef void (*VECTOR_TABLE_Type)(void);
 
-/**
-  \brief System Clock Frequency (Core Clock)
-*/
-extern uint32_t SystemCoreClock;
+  /**
+    \brief System Clock Frequency (Core Clock)
+  */
+  extern uint32_t SystemCoreClock;
 
-/**
-  \brief Setup the microcontroller system.
+  /**
+    \brief Setup the microcontroller system.
 
-   Initialize the System and update the SystemCoreClock variable.
- */
-extern void SystemInit (void);
+     Initialize the System and update the SystemCoreClock variable.
+   */
+  
+    #ifdef __INITIAL_SP
+        #undef __INITIAL_SP
+        #define __INITIAL_SP              Image$$ARM_LIB_STACKHEAP$$ZI$$Limit
+    #endif
+
+    #ifdef __STACK_LIMIT
+        #undef __STACK_LIMIT
+        #define __STACK_LIMIT             Image$$ARM_LIB_STACKHEAP$$ZI$$Base
+    #endif
+  extern void SystemInit(void);
 #ifndef __PROGRAM_START
-#define __PROGRAM_START           __main
+#define __PROGRAM_START __main
 #endif
 
 #ifndef __INITIAL_SP
-#define __INITIAL_SP              Image$$ARM_LIB_STACK$$ZI$$Limit
+#define __INITIAL_SP Image$$ARM_LIB_STACK$$ZI$$Limit
 #endif
 
 #ifndef __STACK_LIMIT
-#define __STACK_LIMIT             Image$$ARM_LIB_STACK$$ZI$$Base
+#define __STACK_LIMIT Image$$ARM_LIB_STACK$$ZI$$Base
 #endif
 
 #ifndef __VECTOR_TABLE
-#define __VECTOR_TABLE            __Vectors
+#define __VECTOR_TABLE __Vectors
 #endif
 
 #ifndef __VECTOR_TABLE_ATTRIBUTE
-#define __VECTOR_TABLE_ATTRIBUTE  __attribute__((used, section("RESET")))
+#define __VECTOR_TABLE_ATTRIBUTE __attribute__((used, section("RESET")))
 #endif
 
-/**
-  \brief  Update SystemCoreClock variable.
+  /**
+    \brief  Update SystemCoreClock variable.
 
-   Updates the SystemCoreClock with current core Clock retrieved from cpu registers.
- */
-extern void SystemCoreClockUpdate (void);
+     Updates the SystemCoreClock with current core Clock retrieved from cpu registers.
+   */
+  extern void SystemCoreClockUpdate(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif//VECTORS_AC6_H
+#endif // VECTORS_AC6_H

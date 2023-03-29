@@ -22,7 +22,7 @@ set(hal_core_SOURCES
 )
 
 set(hal_drivers_CMSIS_device_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Device/ST/STM32F0xx/Include")
-set(hal_drivers_CMSIS_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/Include")
+set(hal_drivers_CMSIS_INCLUDE_DIR "${cmake_SOURCE_DIR}/CMSIS/Core/Include")
 set(hal_drivers_legacy_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F0xx_HAL_Driver/Inc/Legacy")
 set(hal_drivers_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F0xx_HAL_Driver/Inc")
 set(hal_drivers_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Drivers/STM32F0xx_HAL_Driver/Src")
@@ -54,7 +54,7 @@ target_sources(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
-        $<BUILD_INTERFACE:${hal_drivers_CMSIS_INCLUDE_DIR}>
+        $<BUILD_INTERFACE:${cmsis_SOURCE_DIR}/CMSIS/Core/Include>
         $<BUILD_INTERFACE:${hal_drivers_CMSIS_device_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${hal_drivers_legacy_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${hal_drivers_INCLUDE_DIR}>
@@ -72,9 +72,9 @@ target_compile_definitions(${PROJECT_NAME}
 )
 
 set(${PROJECT_NAME}_PUBLIC_HEADERS
-    ${hal_drivers_CMSIS_INCLUDE_DIR}/stm32f0xx.h
-    ${hal_drivers_CMSIS_INCLUDE_DIR}/stm32f030x8.h
-    ${hal_drivers_CMSIS_INCLUDE_DIR}/system_stm32f0xx.h
+    ${hal_drivers_CMSIS_device_INCLUDE_DIR}/stm32f0xx.h
+    ${hal_drivers_CMSIS_device_INCLUDE_DIR}/stm32f030x8.h
+    ${hal_drivers_CMSIS_device_INCLUDE_DIR}/system_stm32f0xx.h
     ${hal_core_INCLUDES_DIR}/main.h
     ${hal_core_INCLUDES_DIR}/stm32h7xx_hal_conf.h
     ${hal_core_INCLUDES_DIR}/stm32h7xx_it.h
