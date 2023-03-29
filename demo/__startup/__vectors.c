@@ -11,8 +11,13 @@
         #undef __STACK_LIMIT
         #define __STACK_LIMIT             Image$$ARM_LIB_STACKHEAP$$ZI$$Base
     #endif
+#elif defined ( __GNUC__ )
+    #if defined (__clang__)
+        #include "__vectors_llvm.h"
+    #else
+        #include "__vectors_gcc.h"
+    #endif
 #endif
-
 #include "cmsis_compiler.h"
 
 /******************************************************************************
