@@ -11,6 +11,8 @@ add_library(${PROJECT_NAME} STATIC)
 add_library(${PROJECT_NAME}::framework ALIAS ${PROJECT_NAME})
 
 include(cmake/lib_cmsis.cmake)
+set(cmsis_DEVICE_INCLUDE_DIR "${cmsis_SOURCE_DIR}/Device/ARM/ARMCM0/Include" CACHE STRING "Path to ARM0 from standard CMSIS")
+set(cmsis_CORE_INCLUDE_DIR "${cmsis_SOURCE_DIR}/CMSIS/Core/Include" CACHE STRING "Path to CMSIS core includes")
 
 set(hal_core_INCLUDES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc")
 set(hal_core_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Core/Src")
@@ -54,7 +56,8 @@ target_sources(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
-        $<BUILD_INTERFACE:${cmsis_SOURCE_DIR}/CMSIS/Core/Include>
+        $<BUILD_INTERFACE:${cmsis_CORE_INCLUDE_DIR}>
+        $<BUILD_INTERFACE:${cmsis_DEVICE_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${hal_drivers_CMSIS_device_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${hal_drivers_legacy_INCLUDE_DIR}>
         $<BUILD_INTERFACE:${hal_drivers_INCLUDE_DIR}>

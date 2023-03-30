@@ -1,14 +1,15 @@
 #include <stdint.h>
 #include "stm32f030x8.h"
 #if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6100100)
-#include "__vectors_ac6.h"
+    #include "__vectors_ac6.h"
 #elif defined(__GNUC__)
-#if defined(__clang__)
-#include "__vectors_llvm.h"
-#else
-#include "__vectors_gcc.h"
+    #if defined(__clang__)
+        #include "__vectors_llvm.h"
+    #else
+        //#include "__vectors_gcc.h"
+    #endif
 #endif
-#endif
+#include "system_ARMCM0.h"
 #include "cmsis_compiler.h"
 
 /******************************************************************************
